@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>DevCore — Plateforme de Développement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #22c55e;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --card: #111827;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #020617, #020617);
+      color: var(--light);
+    }
+
+    /* NAVBAR */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(15, 23, 42, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 24px;
+      color: var(--primary);
+    }
+
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #cbd5f5;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    /* SECTIONS */
+    section {
+      min-height: 100vh;
+      padding: 80px 60px;
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding-top: 120px;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      color: #cbd5f5;
+      font-size: 18px;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 10px;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary);
+      color: #020617;
+    }
+
+    /* CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #020617, #020617);
+      border: 1px solid #1e293b;
+      padding: 25px;
+      border-radius: 18px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: var(--secondary);
+    }
+
+    .card p {
+      color: #94a3b8;
+      font-size: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #020617;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>DevCore</h1>
+  <nav>
+    <a href="#" onclick="showSection('home')">Accueil</a>
+    <a href="#" onclick="showSection('features')">Fonctionnalités</a>
+    <a href="#" onclick="showSection('projects')">Projets</a>
+    <a href="#" onclick="showSection('community')">Communauté</a>
+    <a href="#" onclick="showSection('support')">Support</a>
+  </nav>
+</header>
+
+<!-- ACCUEIL -->
+<section id="home" class="active hero">
+  <h2>Bienvenue sur <span>DevCore</span></h2>
+  <p>
+    DevCore est une plateforme moderne dédiée aux développeurs.
+    Apprends, collabore, crée des projets réels et rejoins une communauté connectée à Discord.
+  </p>
+  <button class="btn btn-primary">Rejoindre le Discord</button>
+  <button class="btn btn-secondary" onclick="showSection('features')">Découvrir les fonctionnalités</button>
+</section>
+
+<!-- FONCTIONNALITÉS -->
+<section id="features">
+  <h2>Fonctionnalités</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>🎓 Apprentissage</h3>
+      <p>Cours, exercices, niveaux et progression encadrée.</p>
+    </div>
+    <div class="card">
+      <h3>🧪 Projets</h3>
+      <p>Projets collaboratifs réels entre développeurs.</p>
+    </div>
+    <div class="card">
+      <h3>🤖 Automatisation</h3>
+      <p>Bots Discord, rôles automatiques, tickets support.</p>
+    </div>
+    <div class="card">
+      <h3>🏆 Récompenses</h3>
+      <p>Badges, XP, classements et reconnaissance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projects">
+  <h2>Projets Communautaires</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Site Web</h3>
+      <p>Création de sites modernes et performants.</p>
+    </div>
+    <div class="card">
+      <h3>Bot Discord</h3>
+      <p>Développement de bots avancés.</p>
+    </div>
+    <div class="card">
+      <h3>Applications</h3>
+      <p>Apps web et outils utiles.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNAUTÉ -->
+<section id="community">
+  <h2>La Communauté</h2>
+  <p>
+    Une communauté sérieuse, bien modérée, avec entraide,
+    mentors et développeurs passionnés.
+  </p>
+</section>
+
+<!-- SUPPORT -->
+<section id="support">
+  <h2>Support</h2>
+  <p>
+    Support technique, tickets Discord, aide au debug
+    et accompagnement personnalisé.
+  </p>
+</section>
+
+<footer>
+  © 2026 DevCore — Plateforme de développement
+</footer>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll("section").forEach(sec => {
+      sec.classList.remove("active");
+    });
+    document.getElementById(id).classList.add("active");
+  }
+</script>
+
+</body>
+</html>
