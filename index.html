@@ -2,53 +2,27 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>DevCore — Create & Build for Discord</title>
+<title>DevCore — Discord & GitHub Builder</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --blue:#2563eb;
-  --green:#22c55e;
-  --dark:#020617;
-  --border:#1e293b;
-  --text:#e5e7eb;
+ --blue:#2563eb;--green:#22c55e;--dark:#020617;--border:#1e293b;--text:#e5e7eb
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
 body{background:#020617;color:var(--text)}
-
-header{
-  padding:20px 50px;display:flex;justify-content:space-between;
-  align-items:center;background:#020617;position:sticky;top:0
-}
+header{padding:20px 50px;display:flex;justify-content:space-between;align-items:center}
 nav a{margin-left:20px;color:#cbd5f5;text-decoration:none;font-weight:600}
 nav a:hover{color:var(--green)}
-h1{color:var(--blue)}
-
-section{display:none;padding:80px 50px;min-height:100vh}
-section.active{display:block;animation:fade .4s}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
-
-.btn{
-  padding:14px 28px;border-radius:12px;border:none;
-  font-weight:700;cursor:pointer;margin-top:15px
-}
+section{display:none;padding:70px 50px}
+section.active{display:block}
+.btn{padding:14px 28px;border-radius:12px;border:none;font-weight:700;cursor:pointer;margin-top:15px}
 .primary{background:var(--blue);color:white}
 .secondary{background:transparent;border:2px solid var(--green);color:var(--green)}
-.primary:hover,.secondary:hover{opacity:.85}
-
-.card{
-  border:1px solid var(--border);
-  border-radius:18px;padding:25px;margin-top:25px
-}
-
-input,textarea,select{
-  width:100%;padding:12px;margin-top:10px;
-  background:#020617;border:1px solid var(--border);
-  border-radius:10px;color:white
-}
-
-.review{border-left:4px solid var(--green);padding-left:15px;margin-top:20px}
+.card{border:1px solid var(--border);border-radius:18px;padding:25px;margin-top:25px}
+input,textarea,select{width:100%;padding:12px;margin-top:10px;background:#020617;border:1px solid var(--border);border-radius:10px;color:white}
+label{margin-top:15px;display:block}
 </style>
 </head>
 
@@ -58,96 +32,119 @@ input,textarea,select{
   <h1>DevCore</h1>
   <nav>
     <a onclick="go('home')">Accueil</a>
-    <a onclick="go('bot')">Créer un bot</a>
-    <a onclick="go('server')">Créer un serveur</a>
-    <a onclick="go('features')">Fonctionnalités</a>
-    <a onclick="go('reviews')">Avis</a>
+    <a onclick="go('bot')">Bot Discord</a>
+    <a onclick="go('server')">Serveur Discord</a>
+    <a onclick="go('github')">GitHub</a>
   </nav>
 </header>
 
-<!-- ACCUEIL -->
 <section id="home" class="active">
-  <h2>La plateforme pour créer sur Discord</h2>
-  <p>DevCore te permet de créer facilement des bots Discord, des serveurs organisés et des projets complets.</p>
-  <button class="btn primary" onclick="go('bot')">Créer un bot Discord</button>
-  <button class="btn secondary" onclick="go('server')">Créer un serveur Discord</button>
+  <h2>Crée, configure et publie tes projets Discord</h2>
+  <p>DevCore te guide pour créer des bots, des serveurs et publier ton projet sur GitHub.</p>
+  <button class="btn primary" onclick="go('bot')">Créer un bot</button>
+  <button class="btn secondary" onclick="go('server')">Créer un serveur</button>
 </section>
 
 <!-- BOT -->
 <section id="bot">
-  <h2>Créer ton bot Discord</h2>
+  <h2>Générateur de Bot Discord</h2>
   <div class="card">
     <label>Nom du bot</label>
-    <input placeholder="Ex: DevCoreBot">
+    <input id="botName" placeholder="DevCoreBot">
+
     <label>Description</label>
-    <textarea placeholder="Que fait ton bot ?"></textarea>
+    <textarea id="botDesc"></textarea>
+
+    <label>Langage</label>
+    <select id="botLang">
+      <option>JavaScript (discord.js)</option>
+      <option>Python (discord.py)</option>
+    </select>
+
     <label>Fonctionnalités</label>
-    <select>
+    <select id="botFeat">
       <option>Modération</option>
       <option>Tickets</option>
       <option>Niveaux / XP</option>
       <option>Administration</option>
     </select>
-    <button class="btn primary" onclick="createBot()">Créer mon bot</button>
+
+    <button class="btn primary" onclick="generateBot()">Générer le projet</button>
   </div>
 </section>
 
 <!-- SERVER -->
 <section id="server">
-  <h2>Créer un serveur Discord</h2>
+  <h2>Création de serveur Discord</h2>
   <div class="card">
     <label>Nom du serveur</label>
-    <input placeholder="Ex: DevCore Community">
-    <label>Description</label>
-    <textarea placeholder="Décris ton serveur"></textarea>
+    <input placeholder="DevCore Community">
+    <label>Objectif</label>
+    <textarea></textarea>
     <label>Type</label>
     <select>
       <option>Développement</option>
       <option>Gaming</option>
       <option>Communauté</option>
     </select>
-    <button class="btn primary" onclick="createServer()">Créer le serveur</button>
+    <button class="btn primary" onclick="createServer()">Créer sur Discord</button>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section id="features">
-  <h2>Fonctionnalités</h2>
-  <div class="card">🤖 Génération de bots Discord</div>
-  <div class="card">🌐 Création de serveurs guidée</div>
-  <div class="card">🎟️ Système de tickets</div>
-  <div class="card">📊 Gestion & automatisation</div>
-  <div class="card">🔐 Sécurité & permissions</div>
-</section>
-
-<!-- REVIEWS -->
-<section id="reviews">
-  <h2>Avis de la communauté</h2>
-  <div class="review">
-    ⭐⭐⭐⭐⭐ — « Enfin une plateforme claire pour Discord »
-  </div>
-  <div class="review">
-    ⭐⭐⭐⭐ — « Simple et très bien expliquée »
-  </div>
-  <div class="review">
-    ⭐⭐⭐⭐⭐ — « Parfait pour débuter »
+<!-- GITHUB -->
+<section id="github">
+  <h2>Publier sur GitHub</h2>
+  <div class="card">
+    <p>Connecte ton projet à GitHub et publie-le facilement.</p>
+    <button class="btn primary" onclick="openGitHub()">Créer un repo GitHub</button>
+    <button class="btn secondary" onclick="downloadReadme()">Télécharger README.md</button>
   </div>
 </section>
 
 <script>
 function go(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+ document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
 }
 
-function createBot(){
-  window.open("https://discord.com/developers/applications","_blank");
+function generateBot(){
+ alert("Structure du bot générée. Prochaine étape : créer l'application Discord.");
+ window.open("https://discord.com/developers/applications","_blank");
 }
 
 function createServer(){
-  window.open("https://discord.com/channels/@me","_blank");
+ window.open("https://discord.com/channels/@me","_blank");
+}
+
+function openGitHub(){
+ window.open("https://github.com/new","_blank");
+}
+
+function downloadReadme(){
+ const text = `# Bot Discord DevCore
+
+## Description
+Projet généré avec DevCore.
+
+## Fonctionnalités
+- Modération
+- Tickets
+- Niveaux
+
+## Installation
+\`\`\`bash
+npm install
+node index.js
+\`\`\`
+`;
+ const blob = new Blob([text], {type:"text/plain"});
+ const a = document.createElement("a");
+ a.href = URL.createObjectURL(blob);
+ a.download = "README.md";
+ a.click();
 }
 </script>
 
 </body>
 </html>
+
