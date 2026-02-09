@@ -1,261 +1,215 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>DevCore — Plateforme de Développement</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>DevCore — Plateforme de Développement</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --primary: #2563eb;
-      --secondary: #22c55e;
-      --dark: #0f172a;
-      --light: #f8fafc;
-      --card: #111827;
-    }
+<style>
+:root{
+  --blue:#2563eb;
+  --green:#22c55e;
+  --dark:#020617;
+  --card:#020617;
+  --text:#e5e7eb;
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:linear-gradient(135deg,#020617,#020617);color:var(--text)}
 
-    body {
-      background: linear-gradient(135deg, #020617, #020617);
-      color: var(--light);
-    }
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 50px;position:sticky;top:0;
+  background:rgba(2,6,23,.9);z-index:100
+}
+header h1{color:var(--blue)}
+nav a{
+  margin-left:25px;color:#cbd5f5;text-decoration:none;font-weight:600
+}
+nav a:hover{color:var(--green)}
 
-    /* NAVBAR */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 60px;
-      background: rgba(15, 23, 42, 0.9);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+section{min-height:100vh;padding:80px 50px;display:none}
+section.active{display:block;animation:fade .4s ease}
 
-    header h1 {
-      font-size: 24px;
-      color: var(--primary);
-    }
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
 
-    nav a {
-      margin-left: 25px;
-      text-decoration: none;
-      color: #cbd5f5;
-      font-weight: 500;
-      transition: 0.3s;
-    }
+.hero{text-align:center;padding-top:120px}
+.hero h2{font-size:48px}
+.hero span{color:var(--blue)}
+.hero p{max-width:700px;margin:20px auto;color:#94a3b8}
 
-    nav a:hover {
-      color: var(--secondary);
-    }
+.btn{
+  padding:14px 30px;border-radius:12px;border:none;
+  font-weight:700;cursor:pointer;margin:10px;
+  transition:.3s
+}
+.btn-primary{background:var(--blue);color:white}
+.btn-primary:hover{transform:scale(1.05)}
+.btn-secondary{
+  background:transparent;border:2px solid var(--green);color:var(--green)
+}
+.btn-secondary:hover{background:var(--green);color:#020617}
 
-    /* SECTIONS */
-    section {
-      min-height: 100vh;
-      padding: 80px 60px;
-      display: none;
-    }
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;margin-top:40px
+}
+.card{
+  background:var(--card);border:1px solid #1e293b;
+  padding:25px;border-radius:18px;cursor:pointer;
+  transition:.3s
+}
+.card:hover{transform:translateY(-8px);border-color:var(--blue)}
 
-    section.active {
-      display: block;
-    }
+.counter{
+  font-size:42px;font-weight:700;color:var(--green)
+}
 
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding-top: 120px;
-    }
+/* MODAL */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);
+  display:none;align-items:center;justify-content:center;z-index:200
+}
+.modal-content{
+  background:#020617;padding:30px;border-radius:18px;
+  width:90%;max-width:500px;text-align:center
+}
+.close{float:right;cursor:pointer;font-size:20px}
 
-    .hero h2 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
-    .hero span {
-      color: var(--primary);
-    }
-
-    .hero p {
-      max-width: 700px;
-      margin: 0 auto 40px;
-      color: #cbd5f5;
-      font-size: 18px;
-    }
-
-    .btn {
-      padding: 14px 28px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      margin: 10px;
-      transition: 0.3s;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #1d4ed8;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 2px solid var(--secondary);
-      color: var(--secondary);
-    }
-
-    .btn-secondary:hover {
-      background: var(--secondary);
-      color: #020617;
-    }
-
-    /* CARDS */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
-    }
-
-    .card {
-      background: linear-gradient(145deg, #020617, #020617);
-      border: 1px solid #1e293b;
-      padding: 25px;
-      border-radius: 18px;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary);
-    }
-
-    .card h3 {
-      margin-bottom: 10px;
-      color: var(--secondary);
-    }
-
-    .card p {
-      color: #94a3b8;
-      font-size: 15px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #020617;
-      color: #64748b;
-    }
-  </style>
+/* NOTIFICATION */
+.toast{
+  position:fixed;bottom:30px;right:30px;
+  background:#020617;border-left:5px solid var(--blue);
+  padding:15px 20px;border-radius:10px;
+  display:none
+}
+</style>
 </head>
+
 <body>
 
 <header>
   <h1>DevCore</h1>
   <nav>
-    <a href="#" onclick="showSection('home')">Accueil</a>
-    <a href="#" onclick="showSection('features')">Fonctionnalités</a>
-    <a href="#" onclick="showSection('projects')">Projets</a>
-    <a href="#" onclick="showSection('community')">Communauté</a>
-    <a href="#" onclick="showSection('support')">Support</a>
+    <a onclick="show('home')">Accueil</a>
+    <a onclick="show('features')">Fonctionnalités</a>
+    <a onclick="show('projects')">Projets</a>
+    <a onclick="show('community')">Communauté</a>
   </nav>
 </header>
 
 <!-- ACCUEIL -->
 <section id="home" class="active hero">
-  <h2>Bienvenue sur <span>DevCore</span></h2>
-  <p>
-    DevCore est une plateforme moderne dédiée aux développeurs.
-    Apprends, collabore, crée des projets réels et rejoins une communauté connectée à Discord.
-  </p>
-  <button class="btn btn-primary">Rejoindre le Discord</button>
-  <button class="btn btn-secondary" onclick="showSection('features')">Découvrir les fonctionnalités</button>
+  <h2>Construis ton futur avec <span>DevCore</span></h2>
+  <p>Plateforme moderne pour apprendre, collaborer et créer des projets réels avec une communauté Discord active.</p>
+  <button class="btn btn-primary" onclick="joinDiscord()">Rejoindre le Discord</button>
+  <button class="btn btn-secondary" onclick="openModal()">En savoir plus</button>
+
+  <div style="margin-top:50px">
+    <div class="counter" id="count">0</div>
+    <p>Membres développeurs</p>
+  </div>
 </section>
 
 <!-- FONCTIONNALITÉS -->
 <section id="features">
   <h2>Fonctionnalités</h2>
   <div class="grid">
-    <div class="card">
+    <div class="card" onclick="notify('Cours interactifs disponibles')">
       <h3>🎓 Apprentissage</h3>
-      <p>Cours, exercices, niveaux et progression encadrée.</p>
+      <p>Cours, niveaux et progression.</p>
     </div>
-    <div class="card">
+    <div class="card" onclick="notify('Nouveaux projets en cours')">
       <h3>🧪 Projets</h3>
-      <p>Projets collaboratifs réels entre développeurs.</p>
+      <p>Travail collaboratif réel.</p>
     </div>
-    <div class="card">
-      <h3>🤖 Automatisation</h3>
-      <p>Bots Discord, rôles automatiques, tickets support.</p>
+    <div class="card" onclick="notify('Tickets support activés')">
+      <h3>🎟️ Support</h3>
+      <p>Aide rapide via Discord.</p>
     </div>
-    <div class="card">
+    <div class="card" onclick="notify('Badges débloqués')">
       <h3>🏆 Récompenses</h3>
-      <p>Badges, XP, classements et reconnaissance.</p>
+      <p>XP, badges, classement.</p>
     </div>
   </div>
 </section>
 
 <!-- PROJETS -->
 <section id="projects">
-  <h2>Projets Communautaires</h2>
+  <h2>Projets</h2>
   <div class="grid">
-    <div class="card">
-      <h3>Site Web</h3>
-      <p>Création de sites modernes et performants.</p>
+    <div class="card" onclick="openModal('Site Web communautaire')">
+      <h3>🌐 Web</h3>
+      <p>Sites modernes</p>
     </div>
-    <div class="card">
-      <h3>Bot Discord</h3>
-      <p>Développement de bots avancés.</p>
+    <div class="card" onclick="openModal('Bot Discord avancé')">
+      <h3>🤖 Bots</h3>
+      <p>Automatisation</p>
     </div>
-    <div class="card">
-      <h3>Applications</h3>
-      <p>Apps web et outils utiles.</p>
+    <div class="card" onclick="openModal('Applications utiles')">
+      <h3>📱 Apps</h3>
+      <p>Outils & apps</p>
     </div>
   </div>
 </section>
 
 <!-- COMMUNAUTÉ -->
 <section id="community">
-  <h2>La Communauté</h2>
-  <p>
-    Une communauté sérieuse, bien modérée, avec entraide,
-    mentors et développeurs passionnés.
-  </p>
+  <h2>Communauté</h2>
+  <p>Une communauté sérieuse, entraide, mentors, modération active et projets concrets.</p>
 </section>
 
-<!-- SUPPORT -->
-<section id="support">
-  <h2>Support</h2>
-  <p>
-    Support technique, tickets Discord, aide au debug
-    et accompagnement personnalisé.
-  </p>
-</section>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">✖</span>
+    <h3 id="modalText">Informations</h3>
+    <p>DevCore est une plateforme connectée à Discord pour apprendre et créer ensemble.</p>
+  </div>
+</div>
 
-<footer>
-  © 2026 DevCore — Plateforme de développement
-</footer>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
-  function showSection(id) {
-    document.querySelectorAll("section").forEach(sec => {
-      sec.classList.remove("active");
-    });
-    document.getElementById(id).classList.add("active");
-  }
+function show(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function joinDiscord(){
+  notify("Redirection vers le Discord...");
+  setTimeout(()=>window.open("https://discord.gg/exemple","_blank"),1000);
+}
+
+function openModal(text="Découvre DevCore"){
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("modalText").innerText=text;
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+function notify(msg){
+  const t=document.getElementById("toast");
+  t.innerText=msg;
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",2500);
+}
+
+/* Compteur animé */
+let c=0;
+const target=250;
+const counter=setInterval(()=>{
+  c++;
+  document.getElementById("count").innerText=c;
+  if(c>=target)clearInterval(counter);
+},15);
 </script>
 
 </body>
 </html>
+
