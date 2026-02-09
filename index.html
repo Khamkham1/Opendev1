@@ -2,9 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>DevCore — Plateforme de Développement</title>
+<title>DevCore — Create & Build for Discord</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -12,79 +11,44 @@
   --blue:#2563eb;
   --green:#22c55e;
   --dark:#020617;
-  --card:#020617;
+  --border:#1e293b;
   --text:#e5e7eb;
 }
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:linear-gradient(135deg,#020617,#020617);color:var(--text)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+body{background:#020617;color:var(--text)}
 
 header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:20px 50px;position:sticky;top:0;
-  background:rgba(2,6,23,.9);z-index:100
+  padding:20px 50px;display:flex;justify-content:space-between;
+  align-items:center;background:#020617;position:sticky;top:0
 }
-header h1{color:var(--blue)}
-nav a{
-  margin-left:25px;color:#cbd5f5;text-decoration:none;font-weight:600
-}
+nav a{margin-left:20px;color:#cbd5f5;text-decoration:none;font-weight:600}
 nav a:hover{color:var(--green)}
+h1{color:var(--blue)}
 
-section{min-height:100vh;padding:80px 50px;display:none}
-section.active{display:block;animation:fade .4s ease}
-
+section{display:none;padding:80px 50px;min-height:100vh}
+section.active{display:block;animation:fade .4s}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
 
-.hero{text-align:center;padding-top:120px}
-.hero h2{font-size:48px}
-.hero span{color:var(--blue)}
-.hero p{max-width:700px;margin:20px auto;color:#94a3b8}
-
 .btn{
-  padding:14px 30px;border-radius:12px;border:none;
-  font-weight:700;cursor:pointer;margin:10px;
-  transition:.3s
+  padding:14px 28px;border-radius:12px;border:none;
+  font-weight:700;cursor:pointer;margin-top:15px
 }
-.btn-primary{background:var(--blue);color:white}
-.btn-primary:hover{transform:scale(1.05)}
-.btn-secondary{
-  background:transparent;border:2px solid var(--green);color:var(--green)
-}
-.btn-secondary:hover{background:var(--green);color:#020617}
+.primary{background:var(--blue);color:white}
+.secondary{background:transparent;border:2px solid var(--green);color:var(--green)}
+.primary:hover,.secondary:hover{opacity:.85}
 
-.grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;margin-top:40px
-}
 .card{
-  background:var(--card);border:1px solid #1e293b;
-  padding:25px;border-radius:18px;cursor:pointer;
-  transition:.3s
-}
-.card:hover{transform:translateY(-8px);border-color:var(--blue)}
-
-.counter{
-  font-size:42px;font-weight:700;color:var(--green)
+  border:1px solid var(--border);
+  border-radius:18px;padding:25px;margin-top:25px
 }
 
-/* MODAL */
-.modal{
-  position:fixed;inset:0;background:rgba(0,0,0,.6);
-  display:none;align-items:center;justify-content:center;z-index:200
+input,textarea,select{
+  width:100%;padding:12px;margin-top:10px;
+  background:#020617;border:1px solid var(--border);
+  border-radius:10px;color:white
 }
-.modal-content{
-  background:#020617;padding:30px;border-radius:18px;
-  width:90%;max-width:500px;text-align:center
-}
-.close{float:right;cursor:pointer;font-size:20px}
 
-/* NOTIFICATION */
-.toast{
-  position:fixed;bottom:30px;right:30px;
-  background:#020617;border-left:5px solid var(--blue);
-  padding:15px 20px;border-radius:10px;
-  display:none
-}
+.review{border-left:4px solid var(--green);padding-left:15px;margin-top:20px}
 </style>
 </head>
 
@@ -93,123 +57,97 @@ section.active{display:block;animation:fade .4s ease}
 <header>
   <h1>DevCore</h1>
   <nav>
-    <a onclick="show('home')">Accueil</a>
-    <a onclick="show('features')">Fonctionnalités</a>
-    <a onclick="show('projects')">Projets</a>
-    <a onclick="show('community')">Communauté</a>
+    <a onclick="go('home')">Accueil</a>
+    <a onclick="go('bot')">Créer un bot</a>
+    <a onclick="go('server')">Créer un serveur</a>
+    <a onclick="go('features')">Fonctionnalités</a>
+    <a onclick="go('reviews')">Avis</a>
   </nav>
 </header>
 
 <!-- ACCUEIL -->
-<section id="home" class="active hero">
-  <h2>Construis ton futur avec <span>DevCore</span></h2>
-  <p>Plateforme moderne pour apprendre, collaborer et créer des projets réels avec une communauté Discord active.</p>
-  <button class="btn btn-primary" onclick="joinDiscord()">Rejoindre le Discord</button>
-  <button class="btn btn-secondary" onclick="openModal()">En savoir plus</button>
+<section id="home" class="active">
+  <h2>La plateforme pour créer sur Discord</h2>
+  <p>DevCore te permet de créer facilement des bots Discord, des serveurs organisés et des projets complets.</p>
+  <button class="btn primary" onclick="go('bot')">Créer un bot Discord</button>
+  <button class="btn secondary" onclick="go('server')">Créer un serveur Discord</button>
+</section>
 
-  <div style="margin-top:50px">
-    <div class="counter" id="count">0</div>
-    <p>Membres développeurs</p>
+<!-- BOT -->
+<section id="bot">
+  <h2>Créer ton bot Discord</h2>
+  <div class="card">
+    <label>Nom du bot</label>
+    <input placeholder="Ex: DevCoreBot">
+    <label>Description</label>
+    <textarea placeholder="Que fait ton bot ?"></textarea>
+    <label>Fonctionnalités</label>
+    <select>
+      <option>Modération</option>
+      <option>Tickets</option>
+      <option>Niveaux / XP</option>
+      <option>Administration</option>
+    </select>
+    <button class="btn primary" onclick="createBot()">Créer mon bot</button>
   </div>
 </section>
 
-<!-- FONCTIONNALITÉS -->
+<!-- SERVER -->
+<section id="server">
+  <h2>Créer un serveur Discord</h2>
+  <div class="card">
+    <label>Nom du serveur</label>
+    <input placeholder="Ex: DevCore Community">
+    <label>Description</label>
+    <textarea placeholder="Décris ton serveur"></textarea>
+    <label>Type</label>
+    <select>
+      <option>Développement</option>
+      <option>Gaming</option>
+      <option>Communauté</option>
+    </select>
+    <button class="btn primary" onclick="createServer()">Créer le serveur</button>
+  </div>
+</section>
+
+<!-- FEATURES -->
 <section id="features">
   <h2>Fonctionnalités</h2>
-  <div class="grid">
-    <div class="card" onclick="notify('Cours interactifs disponibles')">
-      <h3>🎓 Apprentissage</h3>
-      <p>Cours, niveaux et progression.</p>
-    </div>
-    <div class="card" onclick="notify('Nouveaux projets en cours')">
-      <h3>🧪 Projets</h3>
-      <p>Travail collaboratif réel.</p>
-    </div>
-    <div class="card" onclick="notify('Tickets support activés')">
-      <h3>🎟️ Support</h3>
-      <p>Aide rapide via Discord.</p>
-    </div>
-    <div class="card" onclick="notify('Badges débloqués')">
-      <h3>🏆 Récompenses</h3>
-      <p>XP, badges, classement.</p>
-    </div>
-  </div>
+  <div class="card">🤖 Génération de bots Discord</div>
+  <div class="card">🌐 Création de serveurs guidée</div>
+  <div class="card">🎟️ Système de tickets</div>
+  <div class="card">📊 Gestion & automatisation</div>
+  <div class="card">🔐 Sécurité & permissions</div>
 </section>
 
-<!-- PROJETS -->
-<section id="projects">
-  <h2>Projets</h2>
-  <div class="grid">
-    <div class="card" onclick="openModal('Site Web communautaire')">
-      <h3>🌐 Web</h3>
-      <p>Sites modernes</p>
-    </div>
-    <div class="card" onclick="openModal('Bot Discord avancé')">
-      <h3>🤖 Bots</h3>
-      <p>Automatisation</p>
-    </div>
-    <div class="card" onclick="openModal('Applications utiles')">
-      <h3>📱 Apps</h3>
-      <p>Outils & apps</p>
-    </div>
+<!-- REVIEWS -->
+<section id="reviews">
+  <h2>Avis de la communauté</h2>
+  <div class="review">
+    ⭐⭐⭐⭐⭐ — « Enfin une plateforme claire pour Discord »
+  </div>
+  <div class="review">
+    ⭐⭐⭐⭐ — « Simple et très bien expliquée »
+  </div>
+  <div class="review">
+    ⭐⭐⭐⭐⭐ — « Parfait pour débuter »
   </div>
 </section>
-
-<!-- COMMUNAUTÉ -->
-<section id="community">
-  <h2>Communauté</h2>
-  <p>Une communauté sérieuse, entraide, mentors, modération active et projets concrets.</p>
-</section>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">✖</span>
-    <h3 id="modalText">Informations</h3>
-    <p>DevCore est une plateforme connectée à Discord pour apprendre et créer ensemble.</p>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
 
 <script>
-function show(id){
+function go(id){
   document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-function joinDiscord(){
-  notify("Redirection vers le Discord...");
-  setTimeout(()=>window.open("https://discord.gg/exemple","_blank"),1000);
+function createBot(){
+  window.open("https://discord.com/developers/applications","_blank");
 }
 
-function openModal(text="Découvre DevCore"){
-  document.getElementById("modal").style.display="flex";
-  document.getElementById("modalText").innerText=text;
+function createServer(){
+  window.open("https://discord.com/channels/@me","_blank");
 }
-
-function closeModal(){
-  document.getElementById("modal").style.display="none";
-}
-
-function notify(msg){
-  const t=document.getElementById("toast");
-  t.innerText=msg;
-  t.style.display="block";
-  setTimeout(()=>t.style.display="none",2500);
-}
-
-/* Compteur animé */
-let c=0;
-const target=250;
-const counter=setInterval(()=>{
-  c++;
-  document.getElementById("count").innerText=c;
-  if(c>=target)clearInterval(counter);
-},15);
 </script>
 
 </body>
 </html>
-
